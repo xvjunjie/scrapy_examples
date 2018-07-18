@@ -14,7 +14,6 @@ BOT_NAME = 'douban'
 SPIDER_MODULES = ['douban.spiders']
 NEWSPIDER_MODULE = 'douban.spiders'
 LOG_LEVEL = "WARNING"
-USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'douban (+http://www.yourdomain.com)'
@@ -53,9 +52,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'douban.middlewares.DoubanDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'douban.middlewares.DoubanDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -65,9 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'douban.pipelines.DoubanPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'douban.pipelines.DoubanPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -89,3 +88,15 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# MYSQL_HOST = '127.0.0.1'
+# MYSQL_PORT = 3306
+# MYSQL_DBNAME = 'world'
+# MYSQL_USER = 'dhz'
+# MYSQL_PASSWD = '666'
+# MYSQL_CHARSET = 'utf8'
+
+# MONGODB_SERVER = 'localhost'
+# MONGODB_PORT = 27017
+# MONGODB_DB = 'python_database'
+# MONGODB_COLLECTION = 'douban_collection'
