@@ -8,7 +8,6 @@ from pymongo import MongoClient
 from scrapy import log, Item
 from scrapy.exceptions import DropItem
 
-from tencent import settings
 
 
 class TencentPipeline(object):
@@ -25,11 +24,11 @@ class TencentPipeline(object):
         db_server = spider.settings.get("MONGODB_SERVER", "localhost")
         db_port = spider.settings.get("MONGODB_PORT", "27017")
         db_name = spider.settings.get("MONGODB_DB", "tencent_database")
-        db_collection = spider.settings.get("MONGODB_COLLECTION", "")
+        db_collection = spider.settings.get("MONGODB_COLLECTION", "hr_collection")
 
         self.db_client = MongoClient(db_server, db_port)
         self.db = self.db_client[db_name]
-        self.collection = self.db_client[db_collection]
+        self.db_collection = self.db[db_collection]
 
     def close_spider(self, spider):
         self.db_client.close()
@@ -47,13 +46,13 @@ class TencentPipeline(object):
         if isinstance(item, Item):
             item = dict(item)
 
-        valid = True
-        for data in item:
-            if not data:
-                valid = False
-                raise DropItem("Missing {0}!".format(data))
-        if valid:
-            # self.db.hr_collection.insert(item)
-            self.collection.insert(item)
-            # log.msg("Question added to MongoDB database!",
-            #         level=log.DEBUG, spider=spider)
+            valid = True
+            for data in item:
+                if not data:
+                    valid = False
+                    raise DropItem("Missing {0}!".format(data))
+            if valid:
+                # self.db.hr_collection.insert(item)
+                self.db_collection.insert(item)
+                # log.msg("Question added to MongoDB database!",
+                #         level=log.DEBUG, spider=spider)
