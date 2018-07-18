@@ -2,7 +2,7 @@
 
 import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
-from tencent.tencent.user_agents import agents
+from tencent.user_agents import agents
 
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):

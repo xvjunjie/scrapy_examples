@@ -17,6 +17,9 @@ class DoubanPipeline(object):
 
 
     def process_item(self, item, spider):
+
+        print(item)
+
         valid = True
         for data in item:
             if not data:
