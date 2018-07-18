@@ -22,7 +22,7 @@ class MovieSpider(scrapy.Spider):
         li_list = response.xpath("//ol[@class='grid_view']/li")
         for li in li_list:
             item = DoubanItem()
-            item['title_ch'] = response.xpath('//div[@class="hd"]//span[@class="title"][1]/text()').extract()            # item["title_href"] = li.xpath(".//div[@class='hb']/a/@href").extract_first()
+            item['title_ch'] = response.xpath('//div[@class="hd"]//span[1]/text()').extract_first()            # item["title_href"] = li.xpath(".//div[@class='hb']/a/@href").extract_first()
             item["rating_num"] = li.xpath(".//div[@class='star']/span[2]/text()").extract_first()
             item["image_urls"] = li.xpath(".//div[@class='pic']/a/img/@src").extract_first()
             item["topid"] = li.xpath(".//div[@class='pic']/em/text()").extract_first()
