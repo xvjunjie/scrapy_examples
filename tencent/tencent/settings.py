@@ -16,6 +16,7 @@ NEWSPIDER_MODULE = 'tencent.spiders'
 
 LOG_LEVEL = "WARNING"
 
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'tencent (+http://www.yourdomain.com)'
 
