@@ -17,6 +17,6 @@ class TencentHrSpider(scrapy.Spider):
             item["position"] = tr.xpath("./td[2]/text()").extract_first()
             item["publish_date"] = tr.xpath("./td[5]/text()").extract_first()
 
-            print(item)
+            # print(item)
 
             yield item
