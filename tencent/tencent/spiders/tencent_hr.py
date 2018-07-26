@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from tencent.items import TencentItem
-from tencent.log_utils import logger
+from items import TencentItem
+from log_utils import logger
 
 
 class TencentHrSpider(scrapy.Spider):
