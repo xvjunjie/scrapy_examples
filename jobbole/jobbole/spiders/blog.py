@@ -8,7 +8,7 @@ from items import JobBoleArticleItem, ArticleItemLoader
 from urllib import parse
 from scrapy.loader import ItemLoader
 
-from jobbole.utils.common import get_md5
+from utils.common import get_md5
 
 
 class BlogSpider(scrapy.Spider):
@@ -64,7 +64,7 @@ class BlogSpider(scrapy.Spider):
         item_loader.add_xpath("comment_nums",
                               "//span[@class='btn-bluet-bigger href-style hide-on-480']/text()")  # 评论数
         item_loader.add_xpath("content", "//div[@class='entry']") # 内容
-        item_loader.add_xpath("tags", "//p[@class='entry-meta-hide-on-mobile']/a/text()']") # 内容
+        item_loader.add_xpath("tags", "//p[@class='entry-meta-hide-on-mobile']/a/text()") # 内容
 
 
 

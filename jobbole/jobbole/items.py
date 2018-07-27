@@ -9,7 +9,7 @@ import datetime
 import re
 import scrapy
 from scrapy.loader import ItemLoader
-from scrapy.loader.processors import MapCompose, TakeFirst
+from scrapy.loader.processors import MapCompose, TakeFirst, Join
 
 
 # class JobboleItem(scrapy.Item):
@@ -43,7 +43,7 @@ def date_convert(value):
     return create_date
 
 
-def re_fav_nums(value):
+def re_nums(value):
     match_re = re.match(".*?(\d+).*", value)
     if match_re:
         fav_nums = match_re.group(1)
@@ -52,13 +52,20 @@ def re_fav_nums(value):
     return fav_nums
 
 
+def remove_comnent_tag(value):
+    # 移除tags中的评论
+    if "评论" in value:
+        return ""
+    else:
+        return value
 
+
+def return_value(value):
+    return value
 
 class ArticleItemLoader(ItemLoader):
-    #自定义itemloader
+    # 自定义itemloader
     default_output_processor = TakeFirst()
-
-
 
 
 class JobBoleArticleItem(scrapy.Item):
@@ -67,18 +74,32 @@ class JobBoleArticleItem(scrapy.Item):
     '''
     title = scrapy.Field(
         # 表示数据传递进来的时候，可以做些预处理
-        input_processor=MapCompose(add_jobbole)
+        # input_processor=MapCompose(add_jobbole)
     )
     create_date = scrapy.Field(
         input_processor=MapCompose(date_convert),
-        output_processor=TakeFirst()  # 取一个；没有这句，取的是列表
+        # output_processor=TakeFirst()  # 取一个；没有这句，取的是列表
     )
     url = scrapy.Field()
     url_object_id = scrapy.Field()
-    front_image_url = scrapy.Field()
+    front_image_url = scrapy.Field(
+        output_processor=MapCompose(return_value)
+    )
     front_image_path = scrapy.Field()
-    praise_nums = scrapy.Field()
-    comment_nums = scrapy.Field()
-    fav_nums = scrapy.Field()
-    tags = scrapy.Field()
+    praise_nums = scrapy.Field(
+        input_processor=MapCompose(re_nums),
+
+    )
+    comment_nums = scrapy.Field(
+        input_processor=MapCompose(re_nums),
+
+    )
+    fav_nums = scrapy.Field(
+        input_processor=MapCompose(re_nums),
+
+    )
+    tags = scrapy.Field(
+        input_processor=MapCompose(remove_comnent_tag),
+        output_processor=Join(",")
+    )
     content = scrapy.Field()
