@@ -17,17 +17,18 @@ class BlogSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        div_list = response.xpath("//div[@class = 'grid-8']/div")
+        div_list = response.xpath("//div[@class = 'grid-8']/div[1]")
         for div in div_list:
             '''
                 处理文章详情页
             '''
             detail_url = div.xpath(".//div[@class='post-thumb']/a/@href").extract_first()
-            # logger.debug(detail_url)
+            front_image_url = div.xpath(".//div[@class='post-thumb']/a/img/@src").extract_first()  # 封面
 
             yield scrapy.Request(
                 url=parse.urljoin(response.url, detail_url),
-                callback=self.get_detail
+                callback=self.get_detail,
+                meta={"front_image_url": front_image_url}
             )
 
         '''
@@ -45,7 +46,8 @@ class BlogSpider(scrapy.Spider):
     def get_detail(self, response):
 
         title = response.xpath("//div[@class = 'entry-header']/h1/text()").extract_first()  # 标题
-        create_date = response.xpath("//div[@class='entry-meta']/p/text()").extract_first().strip().replace("·","").strip()  # 创建时间
+        create_date = response.xpath("//div[@class='entry-meta']/p/text()").extract_first().strip().replace("·", "").strip()
+
         praise_nums = response.xpath("//div[@class='post-adds']//h10/text()").extract_first()  # 点赞数
         fav_nums = response.xpath("//div[@class='post-adds']/span[2]/text()").extract_first()  # 收藏数
         match_re = re.match(".*?(\d+).*", fav_nums)
@@ -68,6 +70,7 @@ class BlogSpider(scrapy.Spider):
 
         # 赋值
         article_item = JobBoleArticleItem()
+        front_image_url = response.meta.get("front_image_url", "")
         article_item["url_object_id"] = get_md5(response.url)
         article_item["title"] = title
         article_item["url"] = response.url
@@ -76,11 +79,13 @@ class BlogSpider(scrapy.Spider):
         except Exception as e:
             create_date = datetime.datetime.now().date()
         article_item["create_date"] = create_date
-        # article_item["front_image_url"] = [front_image_url]
+        article_item["front_image_url"] = [front_image_url]  # 注意这边
         article_item["praise_nums"] = praise_nums
         article_item["comment_nums"] = comment_nums
         article_item["fav_nums"] = fav_nums
         article_item["tags"] = tags
         article_item["content"] = content
+
+
 
         yield article_item

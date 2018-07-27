@@ -74,8 +74,22 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'jobbole.pipelines.JobbolePipeline': 300,
+   # 'jobbole.pipelines.JobbolePipeline': 300,
+   # 'jobbole.pipelines.JsonWithEncodingPipeline': 3,
+   # 'jobbole.pipelines.JsonWithEncodingPipeline': 4,
+   # 'jobbole.pipelines.ArticleImagePipeline': 2,
+   # 'jobbole.pipelines.MysqlPipeline': 5,
+    'jobbole.pipelines.MysqlTwistedPipline': 6,
+   # 'scrapy.pipelines.images.ImagesPipeline': 1,
 }
+
+
+# 图片保持路径
+IMAGES_URLS_FIELD = "front_image_url"#这边会当做一个列表来处理
+project_dir = os.path.abspath(os.path.dirname(__file__))
+IMAGES_STORE = os.path.join(project_dir, 'images')
+
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -97,3 +111,15 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+
+#数据库配置
+MYSQL_HOST = "127.0.0.1"
+MYSQL_DBNAME = "blogjobbole"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "mysql"
+
+
+SQL_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+SQL_DATE_FORMAT = "%Y-%m-%d"
