@@ -79,7 +79,7 @@ ITEM_PIPELINES = {
    # 'jobbole.pipelines.JsonWithEncodingPipeline': 4,
    # 'jobbole.pipelines.ArticleImagePipeline': 2,
    # 'jobbole.pipelines.MysqlPipeline': 5,
-    'jobbole.pipelines.MysqlTwistedPipline': 6,
+   #  'jobbole.pipelines.MysqlTwistedPipline': 6,
    # 'scrapy.pipelines.images.ImagesPipeline': 1,
 }
 
