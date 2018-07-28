@@ -12,6 +12,7 @@ from utils.common import get_md5
 
 
 class BlogSpider(scrapy.Spider):
+    
     name = 'blog'
     allowed_domains = ['jobbole.com']
     start_urls = ['http://blog.jobbole.com/all-posts/']
