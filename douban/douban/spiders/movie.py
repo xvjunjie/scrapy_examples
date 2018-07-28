@@ -2,7 +2,7 @@
 import codecs
 
 import scrapy
-from douban.douban.items import DoubanItem
+from douban.items import DoubanItem
 
 
 class MovieSpider(scrapy.Spider):
