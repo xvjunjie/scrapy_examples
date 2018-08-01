@@ -26,7 +26,7 @@ class AmazonItem(scrapy.Item):
     review_num = scrapy.Field()
     score = scrapy.Field()#评分
     Primary_category= scrapy.Field(
-        # output_processor=MapCompose(strip_value)
+        input_processor=MapCompose(strip_value),
     )#一级类目
     Sales_volume= scrapy.Field()#销量
     Price =scrapy.Field()#售价

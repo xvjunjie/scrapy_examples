@@ -43,11 +43,9 @@ class BabyWashclothsSpider(scrapy.Spider):
         amazon_loader.add_xpath("Brand", "//a[@id='bylineInfo']/text()")
         amazon_loader.add_xpath("review_num", "//span[@id='acrCustomerReviewText']/text()")
         amazon_loader.add_xpath("score", "//div[@id='averageCustomerReviews']//span[@class='a-icon-alt']/text()")
-
-        amazon_loader.add_xpath("ASIN", "//div[@class='pdTab//']//tr[1]//td[@class='value']/text()")
         amazon_loader.add_xpath("Price", "//span[@id='priceblock_ourprice']/text()")
-        amazon_loader.add_xpath("Primary_category", "//div[@class='pdTab//']//tr[@id='SalesRank']/td[@class='value']/text()")
-
+        amazon_loader.add_xpath("ASIN", "//*[@id='prodDetails']/div[2]/div[2]/div[1]/div[2]/div/div/table/tbody/tr[1]/td[2]/text()")
+        amazon_loader.add_xpath("Primary_category", "//*[@id='SalesRank']/td[2]/text()")
         amazon_item = amazon_loader.load_item()
 
         yield amazon_item
