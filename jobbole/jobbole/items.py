@@ -63,6 +63,7 @@ def remove_comnent_tag(value):
 def return_value(value):
     return value
 
+
 class ArticleItemLoader(ItemLoader):
     # 自定义itemloader
     default_output_processor = TakeFirst()

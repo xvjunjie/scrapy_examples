@@ -19,6 +19,11 @@ class AmazonItemLoader(ItemLoader):
 def strip_value(value):
     return value.strip()
 
+def asin_value(value):
+    if value:
+        return value
+    else:
+        return ""
 
 class AmazonItem(scrapy.Item):
 
@@ -30,7 +35,9 @@ class AmazonItem(scrapy.Item):
     )#一级类目
     Sales_volume= scrapy.Field()#销量
     Price =scrapy.Field()#售价
-    ASIN = scrapy.Field()
+    ASIN = scrapy.Field(
+        input_processor=MapCompose(asin_value),
+    )
 
 
 
